@@ -1,0 +1,36 @@
+<?php
+
+$lang_login = array
+(
+	'h1_not_logged_in' => "未登录!",
+	'p_error' => "错误:",
+	'p_after_logged_in' => "该页面必须在登录后才能访问",
+	'p_need_cookies_enables' => "<b>注意</b>: 你需要启用cookies才能登录或切换语言",
+	'p_fail_ban' => "次连续登录失败将导致你的IP地址被禁用!",
+	'p_you_have' => "你还有",
+	'p_remaining_tries' => "次尝试机会",
+	'p_no_account_signup' => "还没有账号? 马上 <a href=\"http://bbs.lzu.edu.cn/bbsreg.html\" target=\"_blank\"><b>注册</b></a>！ &nbsp;&nbsp;<a href=\"http://bbs.lzu.edu.cn/wForum/lostpasswd.php\" target=\"_blank\"><b>忘记密码？</b></a>",
+	'p_forget_pass_recover' => "PT站仅支持西北望已激活用户登陆，更多信息，请访问 <a href=\"http://bbs.lzu.edu.cn/nForum/board/PT\" target=\"_blank\"><b>西北望BBS PT资源版</b></a>",
+	'p_resend_confirm' => "目前系统处于内测阶段，如果您有意见或者建议请联系 西北望 或 <a class=faqlink href=\"http://pt.xbwbbs.com/staff.php\">PT站管理员</a>",
+	'p_tishi' => "<font size=2><font color=blue>本站禁止µTorrent 2.2版本，点击下载</font><a class=faqlink href=\"http://pt.xbwbbs.com/tools/utorrent2.0.4.rar\">【µTorrent2.0.4稳定版】</a> <a class=faqlink href=\"http://pt.xbwbbs.com/tools/uTorrent3.0.rar\">【µTorrent3.0.rar】</a>|| <a class=faqlink href=\"course.php\">【PT做种简明教程】</a></font>",
+	'rowhead_username' => "用户名：",
+	'rowhead_password' => "密	码：",
+	'button_login' => "登录",
+	'button_reset' => "重置",
+	'text_auto_logout' => "自动登出：",
+	'text_restrict_ip' => "限制IP：",
+	'text_ssl' => "SSL (HTTPS)：",
+	'checkbox_auto_logout' => " 15分钟后自动登出",
+	'checkbox_restrict_ip' => " 限制只能使用本IP登录",
+	'checkbox_ssl' => " 使用SSL数据加密协议浏览网站(浏览器)",
+	'checkbox_ssl_tracker' => " 使用SSL数据加密协议连接Tracker(BT客户端)",
+	'text_advanced_options' => "高级选项：",
+	'text_helpbox' => "求助区",
+	'text_helpbox_note' => "注册或登录遇到问题？请在此留言",
+	'text_message' => "留言：",
+	'sumbit_shout' => "发送",
+	'submit_clear' => "清空",
+	'text_select_lang' => "Select Site Language: ",
+	'head_login' => "登录",
+);
+?>

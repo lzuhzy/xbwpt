@@ -1,0 +1,152 @@
+@charset "utf-8";
+
+#slideBox {
+	float:left;
+	clear:left;
+	background:url(../images/slidebox/bg.gif);
+	height:244px;
+	width:144px;
+	padding-left:8px;
+	padding-right:8px;
+	font-size:14px;
+	text-decoration:none;
+}
+
+#slide {
+	padding-top:5px;
+}
+
+#slidebottom {
+	padding-top:10px !important;
+	padding-top:5px;
+	width:144px;
+	height:35px;
+	font-size:14px;
+	font-weight:bold;
+	line-height:20px !important;
+	line-height:25px;
+	text-align:center;
+	background:url(../images/slidebox/bottombg.gif) no-repeat;
+	float:left;
+}
+#slidebottom a{
+	color:#000;
+	text-decoration: none
+}
+
+#slide li img {
+	margin-right:3px;
+}
+
+#slideBox ul {
+	padding:0;
+	margin:0;
+	clear:both;
+	list-style:none;
+	overflow:hidden;
+}
+
+#slideBox li {
+	float:left;
+	font-weight:bold;
+	height:37px !important;
+	height:27px;
+}
+
+#slideBox li a:link, #slideBox li a:visited {
+	color:#000;
+	text-decoration: none
+}
+
+#slideBox li a:hover {
+	color:#ff7300;
+	text-decoration: none;
+}
+
+#slideBox .l {
+	background:url(../images/slidebox/tableft.gif);
+	width:70px;
+}
+
+#slideBox .r {
+	background:url(../images/slidebox/tabright.gif);
+	width:70px;
+	float:right;
+}
+
+#slideBox .l_h {
+	background:url(../images/slidebox/tableft_h.gif);
+	width:70px;
+}
+
+#slideBox .r_h {
+	background:url(../images/slidebox/tabright_h.gif);
+	width:70px;
+	float:right;
+}
+
+#slideBox .hide {
+	display:none;
+}
+
+#slideBox .l a {
+	width:30px;
+	text-decoration:none;
+}
+
+#slideBox .r a {
+	width:30px;
+	text-decoration:none;
+}
+
+.arrow {
+	text-decoration:none;
+	color:#003278;
+}
+
+#slideBox .l a, #slideBox .r a, #slideBox .l_h a, #slideBox .r_h a {
+	padding-left:20px;
+	display:block;
+	height:100%;
+	padding-top:10px;
+	text-decoration:none;
+}
+
+#slideBox .cont_l {
+	float:left;
+	background:url(../images/slidebox/conleft.gif) no-repeat;
+	width:144px;
+	height:31px;
+	padding:9px 0px 7px 0px;
+	margin-bottom:4px;
+	overflow:hidden;
+}
+
+#slideBox .cont_r {
+	float:left;
+	background:url(../images/slidebox/conright.gif) no-repeat;
+	width:144px;
+	height:31px;
+	padding:9px 0px 7px 0px;
+	margin-bottom:4px;
+	overflow:hidden;
+}
+
+#slideBox .oneline  {
+	line-height:33px;
+	text-align:center;
+}
+#slideBox .twoline {
+	line-height:16px;
+	text-align:center;
+}
+#slideBox .oneline a {
+	text-decoration:none;
+	color:#003278;
+}
+#slideBox .twoline a {
+	text-decoration:none;
+	color:#003278;
+}
+
+

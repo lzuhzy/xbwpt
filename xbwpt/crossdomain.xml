@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cross-domain-policy>
+   <allow-access-from domain="bbs.lzu.edu.cn"/>
+   <allow-access-from domain="lzuren.lzu6.edu.cn"/>
+   <allow-access-from domain="pt.lzu6.edu.cn"/>
+   <allow-access-from domain="pt.lzu.edu.cn"/>
+   <allow-access-from domain="bbs.lzu6.edu.cn"/>
+</cross-domain-policy>
