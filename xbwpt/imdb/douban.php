@@ -1,4 +1,4 @@
-<?
+<?php
 class douban {
     var $doubanxml,$dbarray;
     var $dbinfo;
