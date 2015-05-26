@@ -19,23 +19,23 @@ foreach (array("port","downloaded","uploaded","left","compact","no_peer_id") as 
 }
 //check info_hash, peer_id and passkey
 foreach (array("passkey","info_hash","peer_id","port","downloaded","uploaded","left") as $x)
-	if (!isset($x)) err("Missing key: $x");
+	if (!isset($x)) err("丢失参数: $x");
 foreach (array("info_hash","peer_id") as $x)
-	if (strlen($GLOBALS[$x]) != 20) err("Invalid $x (" . strlen($GLOBALS[$x]) . " - " . rawurlencode($GLOBALS[$x]) . ")");
-if (strlen($passkey) != 32) err("Invalid passkey (" . strlen($passkey) . " - $passkey)");
+	if (strlen($GLOBALS[$x]) != 20) err("错误的 $x (" . strlen($GLOBALS[$x]) . " - " . rawurlencode($GLOBALS[$x]) . ")");
+if (strlen($passkey) != 32) err("错误的 passkey (" . strlen($passkey) . " - $passkey)");
 
 
 
 //4. GET IP AND CHECK PORT
 $ip = getip();	// avoid to get the spoof ip from some agent
 if (!$port || $port > 0xffff)
-	err("invalid port");
+	err("错误的端口");
 if (!ip2long($ip)) //Disable compact announce with IPv6
 	$compact = 0;
 
 // check port and connectable
 if (portblacklisted($port))
-	err("Port $port is blacklisted.");
+	err("端口 $port 是被禁止的");
 
 //5. GET PEER LIST
 // Number of peers that the client would like to receive from the tracker.This value is permitted to be zero. If omitted, typically defaults to 50 peers.
@@ -59,7 +59,7 @@ if (!$az = $Cache->get_value('user_passkey_'.$passkey.'_content')){
 	$az = mysql_fetch_array($res);
 	$Cache->cache_value('user_passkey_'.$passkey.'_content', $az, 950);
 }
-if (!$az) err("Invalid passkey! Re-download the .torrent from $BASEURL");
+if (!$az) err("错误的 passkey! 请重新下载种子");
 $userid = 0+$az['id'];
 
 
@@ -98,8 +98,8 @@ if (!$torrent = $Cache->get_value('torrent_hash_'.$info_hash.'_content')){
 	$torrent = mysql_fetch_array($res);
 	$Cache->cache_value('torrent_hash_'.$info_hash.'_content', $torrent, 350);
 }
-if (!$torrent) err("torrent not registered with this tracker");
-elseif ($torrent['banned'] == 'yes' && $az['class'] < $seebanned_class) err("torrent banned");
+if (!$torrent) err("该种子还未上传到服务器");
+elseif ($torrent['banned'] == 'yes' && $az['class'] < $seebanned_class) err("禁止的种子");
 // select peers info from peers table for this torrent
 $torrentid = $torrent["id"];
 $numpeers = $torrent["seeders"]+$torrent["leechers"];
@@ -186,15 +186,15 @@ if(isset($self) && $self['prevts'] > (TIMENOW - $announce_wait))
 if (!isset($self))
 {
 	$valid = @mysql_fetch_row(@sql_query("SELECT COUNT(*) FROM peers WHERE torrent=$torrentid AND userid=" . sqlesc($userid)));
-	if ($valid[0] >= 1 && $seeder == 'no') err("You already are downloading the same torrent. You may only leech from one location at a time.");
-	if ($valid[0] >= 3 && $seeder == 'yes') err("You cannot seed the same torrent from more than 3 locations.");
+	if ($valid[0] >= 1 && $seeder == 'no') err("清理冗余种子吧!你下载该资源的地点超过一处");	
+	if ($valid[0] >= 3 && $seeder == 'yes') err("清理冗余种子吧!你上传该资源的地点超过三处");
 
 	if ($az["enabled"] == "no")
-	err("Your account is disabled!");
+	err("你的账户被禁用");
 	elseif ($az["parked"] == "yes")
-	err("Your account is parked! (Read the FAQ)");
+	err("你的账户已冻结");
 	elseif ($az["downloadpos"] == "no")
-	err("Your downloading priviledges have been disabled! (Read the rules)");
+	err("你的账户禁止下载");
 
 	if ($az["class"] < UC_VIP)
 	{
@@ -227,7 +227,7 @@ if (!isset($self))
 			{
 				$res = sql_query("SELECT COUNT(*) AS num FROM peers WHERE userid='$userid' AND seeder='no'") or err("Tracker error 5");
 				$row = mysql_fetch_assoc($res);
-				if ($row['num'] >= $max) err("Your slot limit is reached! You may at most download $max torrents at the same time, please read $BASEURL/faq.php#id66 for details");
+				if ($row['num'] >= $max) err("由于最大下载数限制限制! 你最多同时下载 $max 个资源");
 			}
 		}
 	}
