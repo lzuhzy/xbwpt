@@ -1,0 +1,26 @@
+<?php 
+$lang_req = array
+(
+                'std_error'=>"錯誤！",
+                'std_invalid_action'=>"無效的動作！",
+                'head_req'=>"新增求種",
+                'name'=>"所求資源名稱",
+                'new_amount'=>"追加懸賞",
+                'ori_amount'=>"初始懸賞",
+                'addedby'=>"求種人",
+                'addedtime'=>"添加時間",
+                'state'=>"當前狀態",
+                'finished'=>"已結束",
+                'unfinished'=>"未解決",
+                'id_not_exist'=>"所求種子不存在",
+                'text_reqed_by'=>"由",
+                'text_reqed_at'=>"發布於",
+                'ori_amount_is_1'=>"魔力值,初始懸賞為",
+                'ori_amount_is_2'=>"魔力值",
+                'do'=>"行為",
+                'tr_edit'=>"編輯求種",
+                'tr_res'=>"我要應求",
+                'tr_delete'=>'刪除求種',
+                'head_resreq'=>"我要應求",
+)
+?>

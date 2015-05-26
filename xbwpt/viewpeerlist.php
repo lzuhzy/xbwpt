@@ -52,9 +52,14 @@ function dltable($name, $arr, $torrent)
 
 		$secs = max(1, ($e["la"] - $e["st"]));
 		if ($enablelocation_tweak == 'yes'){
-			list($loc_pub, $loc_mod) = get_ip_location($e["ip"]);
-			$location = get_user_class() >= $userprofile_class ? "<div title='" . $loc_mod . "'>" . $loc_pub . "</div>" : $loc_pub;
-			$s .= "<td class=rowfollow align=center width=1%><nobr>" . $location . "</nobr></td>\n";
+                    //PTrobot Amanda add 2015.5.14
+                    if($e["ip"] == "202.201.1.73") {
+                        $s .= "<td class=rowfollow align=center width=1%><nobr>西北望PT站</nobr></td>\n";
+                    }else{
+                        list($loc_pub, $loc_mod) = get_ip_location($e["ip"]);
+                        $location = get_user_class() >= $userprofile_class ? "<div title='" . $loc_mod . "'>" . $loc_pub . "</div>" : $loc_pub;
+                        $s .= "<td class=rowfollow align=center width=1%><nobr>" . $location . "</nobr></td>\n";
+                   }
 		}
 		elseif (get_user_class() >= $userprofile_class){
 			$location = $e["ip"];
@@ -84,7 +89,12 @@ function dltable($name, $arr, $torrent)
 		$s .= "<td class=rowfollow align=center width=1%><nobr>" . sprintf("%.2f%%", 100 * (1 - ($e["to_go"] / $torrent["size"]))) . "</nobr></td>\n";
 		$s .= "<td class=rowfollow align=center width=1%><nobr>" . mkprettytime($now - $e["st"]) . "</nobr></td>\n";
 		$s .= "<td class=rowfollow align=center width=1%><nobr>" . mkprettytime($now - $e["la"]) . "</nobr></td>\n";
-		$s .= "<td class=rowfollow align=center width=1%><nobr>" . htmlspecialchars(get_agent($e["peer_id"],$e["agent"])) . "</nobr></td>\n";
+                //PTrobot Amanda add 2015.5.14
+                if ($e['userid'] == "148317") {
+                        $s .= "<td class=rowfollow align=center width=1%><nobr>自动做种系统</nobr></td>\n";
+                }else{
+                        $s .= "<td class=rowfollow align=center width=1%><nobr>" . htmlspecialchars(get_agent($e["peer_id"],$e["agent"])) . "</nobr></td>\n";
+                }
 		$s .= "</tr>\n";
 	}
 	$s .= "</table>\n";

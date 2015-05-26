@@ -125,7 +125,13 @@ else {
 			$download = "<a title=\"".$lang_details['title_download_torrent']."\" href=\"download.php?id=".$id."\"><img class=\"dt_download\" src=\"pic/trans.gif\" alt=\"download\" />&nbsp;<b><font class=\"small\">".$lang_details['text_download_torrent']."</font></b></a>&nbsp;|&nbsp;";
 		else $download = "";
 
-		tr($lang_details['row_action'], $download. ($owned == 1 ? "<$editlink><img class=\"dt_edit\" src=\"pic/trans.gif\" alt=\"edit\" />&nbsp;<b><font class=\"small\">".$lang_details['text_edit_torrent'] . "</font></b></a>&nbsp;|&nbsp;" : "").  (get_user_class() >= $askreseed_class && $row[seeders] == 0 ? "<a title=\"".$lang_details['title_ask_for_reseed']."\" href=\"takereseed.php?reseedid=$id\"><img class=\"dt_reseed\" src=\"pic/trans.gif\" alt=\"reseed\">&nbsp;<b><font class=\"small\">".$lang_details['text_ask_for_reseed'] ."</font></b></a>&nbsp;|&nbsp;" : "") . "<a title=\"".$lang_details['title_report_torrent']."\" href=\"report.php?torrent=$id\"><img class=\"dt_report\" src=\"pic/trans.gif\" alt=\"report\" />&nbsp;<b><font class=\"small\">".$lang_details['text_report_torrent']."</font></b></a>".$v6button, 1);
+		if (get_user_class() >= UC_ADMINISTRATOR) {
+			$ptrobot="&nbsp;&nbsp;|&nbsp;<a title=\"将种子添加到自动做种列表\" href=\"ptrobot.php?utid=$id\"><img class=\"buddylist\" src=\"pic/trans.gif\" alt=\"buy\" />&nbsp;<b><font class=\"small\">".添加自动做种."</font></b></a>";
+		}else{
+			$ptrobot="";
+		}
+
+		tr($lang_details['row_action'], $download. ($owned == 1 ? "<$editlink><img class=\"dt_edit\" src=\"pic/trans.gif\" alt=\"edit\" />&nbsp;<b><font class=\"small\">".$lang_details['text_edit_torrent'] . "</font></b></a>&nbsp;|&nbsp;" : "").  (get_user_class() >= $askreseed_class && $row[seeders] == 0 ? "<a title=\"".$lang_details['title_ask_for_reseed']."\" href=\"takereseed.php?reseedid=$id\"><img class=\"dt_reseed\" src=\"pic/trans.gif\" alt=\"reseed\">&nbsp;<b><font class=\"small\">".$lang_details['text_ask_for_reseed'] ."</font></b></a>&nbsp;|&nbsp;" : "") . "<a title=\"".$lang_details['title_report_torrent']."\" href=\"report.php?torrent=$id\"><img class=\"dt_report\" src=\"pic/trans.gif\" alt=\"report\" />&nbsp;<b><font class=\"small\">".$lang_details['text_report_torrent']."</font></b></a>".$ptrobot, 1);
 
 		// ---------------- start subtitle block -------------------//
 		$r = sql_query("SELECT subs.*, language.flagpic, language.lang_name FROM subs LEFT JOIN language ON subs.lang_id=language.id WHERE torrent_id = " . sqlesc($row["id"]). " ORDER BY subs.lang_id ASC") or sqlerr(__FILE__, __LINE__);
@@ -415,7 +421,11 @@ else {
 		if(file_exists("./imdb/images/".$douban_id.".jpg")){
 			$doubaninfo .= "<img src=\""."imdb/images/".$douban_id.".jpg"."\">";
 		}
-		tr($doubaninfo, file_get_contents("./imdb/cache/".$douban_id.".page")."<a href=\"".htmlspecialchars("retriver.php?id=". $id ."&type=2&siteid=3")."\">更新</a>",1);
+		if(file_exists("./imdb/images/".$douban_id.".jpg")){
+			tr($doubaninfo, file_get_contents("./imdb/cache/".$douban_id.".page")."<a href=\"".htmlspecialchars("retriver.php?id=". $id ."&type=2&siteid=3")."\">更新</a>",1);
+		}else{
+			tr($doubaninfo, "<a href=\"".htmlspecialchars("retriver.php?id=". $id ."&type=2&siteid=3")."\">更新</a>",1);
+		}
 	}
 
 		if ($imdb_id || $douban_id)
@@ -575,6 +585,7 @@ echo "</script>";
 			$thanksby = get_username($CURUSER['id'])." ".$thanksby;
 		}
 		$thanksbutton = "<input class=\"btn\" type=\"button\" id=\"saythanks\"  onclick=\"saythanks(".$torrentid.");\" ".$buttonvalue." />";
+
 		tr($lang_details['row_thanks_by'],"<span id=\"thanksadded\" style=\"display: none;\"><input class=\"btn\" type=\"button\" value=\"".$lang_details['text_thanks_added']."\" disabled=\"disabled\" /></span><span id=\"curuser\" style=\"display: none;\">".get_username($CURUSER['id'])." </span><span id=\"thanksbutton\">".$thanksbutton."</span>&nbsp;&nbsp;<span id=\"nothanks\">".$nothanks."</span><span id=\"addcuruser\"></span>".$thanksby.($thanks_all < $thanksCount ? $lang_details['text_and_more'].$thanksCount.$lang_details['text_users_in_total'] : ""),1);
 		// ------------- end thanked-by block--------------//
 

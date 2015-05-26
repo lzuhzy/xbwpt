@@ -118,6 +118,7 @@ $showshoutbox_main = $MAIN['showshoutbox'];
 $showfunbox_main = $MAIN['showfunbox'];
 $enableoffer = $MAIN['showoffer'];
 $loginadd = $MAIN['loginadd'];
+$enablerequest = $MAIN['enablerequest'];
 $sptime = $MAIN['sptime'];
 $showhelpbox_main = $MAIN['showhelpbox'];
 $enablebitbucket_main = $MAIN['enablebitbucket'];

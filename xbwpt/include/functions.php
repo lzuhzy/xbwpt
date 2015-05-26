@@ -2221,7 +2221,7 @@ function get_if_restricted_is_open()
 function menu ($selected = "home") {
 	global $lang_functions;
 	global $BASEURL,$CURUSER;
-	global $enableoffer, $enablespecial, $enableextforum, $extforumurl, $where_tweak;
+	global $enableoffer, $enablespecial, $enableextforum, $extforumurl, $where_tweak, $enablerequest;
 	global $USERUPDATESET;
 	$script_name = $_SERVER["SCRIPT_FILENAME"];
 	if (preg_match("/index/i", $script_name)) {
@@ -2254,6 +2254,8 @@ function menu ($selected = "home") {
 		$selected = "faq";
 	}elseif (preg_match("/staff/i", $script_name)) {
 		$selected = "staff";
+        }elseif (preg_match("/ptrobot/i", $script_name)) {
+                $selected = "ptrobot";
 	}else
 	$selected = "";
 	print ("<div id=\"nav\"><ul id=\"mainmenu\" class=\"menu\">");
@@ -2262,15 +2264,14 @@ function menu ($selected = "home") {
 	print ("<li" . ($selected == "forums" ? " class=\"selected\"" : "") . "><a href=\"forums.php\">".论坛."</a></li>");
 	else
 	print ("<li" . ($selected == "forums" ? " class=\"selected\"" : "") . "><a href=\"" . $extforumurl."\" target=\"_blank\">PT".$lang_functions['text_forums']."</a></li>");
-	print ("<li" . ($selected == "request" ? " class=\"selected\"" : "") . "><a href=\"viewrequest.php\">".悬赏求种."</a></li>");
+	if ($enablerequest == 'yes')
+	print ("<li" . ($selected == "request" ? " class=\"selected\"" : "") . "><a href=\"viewrequest.php\">".$lang_functions['text_viewrequest']."</a></li>");
 	print ("<li" . ($selected == "torrents" ? " class=\"selected\"" : "") . "><a href=\"torrents.php\">".$lang_functions['text_torrents']."</a></li>");
-	print ("<li" . ($selected == "poor" ? " class=\"selected\"" : "") . "><a href=\"poor.php?cat=13000\">".低质量."</a></li>");
+	print ("<li" . ($selected == "poor" ? " class=\"selected\"" : "") . "><a href=\"poor.php\">".$lang_functions['text_poor']."</a></li>");
 	if ($enablespecial == 'yes')
 	print ("<li" . ($selected == "music" ? " class=\"selected\"" : "") . "><a href=\"music.php\">".$lang_functions['text_music']."</a></li>");
 	if ($enableoffer == 'yes')
 	print ("<li" . ($selected == "offers" ? " class=\"selected\"" : "") . "><a href=\"offers.php\">".$lang_functions['text_offers']."</a></li>");
-	if ($enablerequest == 'yes')
-	print ("<li" . ($selected == "requests" ? " class=\"selected\"" : "") . "><a href=\"viewrequests.php\">".$lang_functions['text_request']."</a></li>");
 	print ("<li" . ($selected == "upload" ? " class=\"selected\"" : "") . "><a href=\"upload.php\">".$lang_functions['text_upload']."</a></li>");
 	print ("<li" . ($selected == "subtitles" ? " class=\"selected\"" : "") . "><a href=\"subtitles.php\">".$lang_functions['text_subtitles']."</a></li>");
 ##################控制面板移动到下面###############
@@ -2283,6 +2284,7 @@ if (get_user_class() >= UC_MODERATOR) {
 	print ("<li" . ($selected == "rules" ? " class=\"selected\"" : "") . "><a href=\"rules.php\">".$lang_functions['text_rules']."</a></li>");
 	print ("<li" . ($selected == "faq" ? " class=\"selected\"" : "") . "><a href=\"faq.php\">".$lang_functions['text_faq']."</a></li>");
 	print ("<li" . ($selected == "staff" ? " class=\"selected\"" : "") . "><a href=\"staff.php\">".$lang_functions['text_staff']."</a></li>");
+	print ("<li" . ($selected == "ptrobot" ? " class=\"selected\"" : "") . "><a href=\"getusertorrentlist.php?userid=148317&type=seeding\">自动做种</a></li>");
 	print ("</ul></div>");
 
 	if ($CURUSER){
@@ -2559,7 +2561,7 @@ else {
 
 <table id="info_block" cellpadding="4" cellspacing="0" border="0" width="100%"><tr>
 	<td><table width="100%" cellspacing="0" cellpadding="0" border="0"><tr>
-		<td class="bottom" align="left"><span class="medium"><?php echo get_username($CURUSER['id'])?>  [<a href="logout.php"><?php echo $lang_functions['text_logout'] ?></a>]<?php if (get_user_class() >= UC_MODERATOR) { ?> [<a href="staffpanel.php"><?php echo $lang_functions['text_staff_panel'] ?></a>] <?php }?> <?php if (get_user_class() >= UC_SYSOP) { ?> [<a href="settings.php"><?php echo $lang_functions['text_site_settings'] ?></a>]<?php } ?> [<a href="usercp.php"><?php echo $lang_functions['text_user_cp'] ?></a>] [<a href="torrents.php?inclbookmarked=1&amp;allsec=1&amp;incldead=0"><?php echo $lang_functions['text_bookmarks'] ?></a>] <font class = 'color_bonus'><?php echo $lang_functions['text_bonus'] ?></font>: <?php echo number_format($CURUSER['seedbonus'], 1)?> [<a href="myhistory.php?id=<?php echo $CURUSER['id'] ?>&type=bonus">历史</a>][<a href="mybonus.php"><?php echo $lang_functions['text_use'] ?></a>][<a href="blackjack.php"><font color=red>21点</font></a>]<br />
+		<td class="bottom" align="left"><span class="medium"><?php echo get_username($CURUSER['id'])?>  [<a href="logout.php"><?php echo $lang_functions['text_logout'] ?></a>]<?php if (get_user_class() >= UC_MODERATOR) { ?> [<a href="staffpanel.php"><?php echo $lang_functions['text_staff_panel'] ?></a>] <?php }?> <?php if (get_user_class() >= UC_SYSOP) { ?> [<a href="settings.php"><?php echo $lang_functions['text_site_settings'] ?></a>]<?php } ?> [<a href="usercp.php"><?php echo $lang_functions['text_user_cp'] ?></a>] [<a href="torrents.php?inclbookmarked=1&amp;allsec=1&amp;incldead=0"><?php echo $lang_functions['text_bookmarks'] ?></a>] <font class = 'color_bonus'><?php echo $lang_functions['text_bonus'] ?></font>: <?php echo number_format($CURUSER['seedbonus'], 1)?> [<a href="myhistory.php?id=<?php echo $CURUSER['id'] ?>&type=bonus">历史</a>][<a href="mybonus.php"><?php echo $lang_functions['text_use'] ?></a>][<a href="blackjack.php"><font color=red>21点</font></a>][<a href="bet.php"><font color=green>博彩</font></a>]<br />
 
 	<font class="color_ratio"><?php echo $lang_functions['text_ratio'] ?></font> <?php echo $ratio?>  <font class='color_uploaded'><?php echo $lang_functions['text_uploaded'] ?></font> <?php echo mksize($CURUSER['uploaded'])?><font class='color_downloaded'> <?php echo $lang_functions['text_downloaded'] ?></font> <?php echo mksize($CURUSER['downloaded'])?>  <font class='color_active'><?php echo $lang_functions['text_active_torrents'] ?></font> <img class="arrowup" alt="Torrents seeding" title="<?php echo $lang_functions['title_torrents_seeding'] ?>" src="pic/trans.gif" /><?php echo $activeseed?>  <img class="arrowdown" alt="Torrents leeching" title="<?php echo $lang_functions['title_torrents_leeching'] ?>" src="pic/trans.gif" /><?php echo $activeleech?>&nbsp;&nbsp;<font class='color_connectable'><?php echo $lang_functions['text_connectable'] ?></font><?php echo $connectable?> <?php echo maxslots();?></span></td>
 
@@ -2605,7 +2607,7 @@ print("<a href=\"cheaterbox.php\"><img class=\"cheaterbox\" alt=\"cheaterbox\" s
 		$Cache->cache_value('staff_cheater_count', $totalcheaters, 900);
 	}
 	}
-	print("".$inboxpic." <a href=\"messages.php\">".收件箱."</a> ".($messages ? $messages." (".$unread.$lang_functions['text_message_new'].")" : "0"));
+	print("".$inboxpic." <a href=\"messages.php\">".$lang_functions['title_inbox']."</a> ".($messages ? $messages." (".$unread.$lang_functions['text_message_new'].")" : "0"));
 	print(" <img class=\"sentbox\" src=\"pic/trans.gif\" /> <a href=\"messages.php?action=viewmailbox&amp;box=-1\">".$lang_functions['title_sentbox']."</a> ".($outmessages ? $outmessages : "0"));
 	print(" <img class=\"buddylist\" src=\"pic/trans.gif\" /> <a href=\"friends.php\">".$lang_functions['title_buddylist']."</a>");
 	print(" <img class=\"rss\" src=\"pic/trans.gif\" /><a href=\"getrss.php\">".$lang_functions['title_get_rss']."</a>");
@@ -3466,15 +3468,13 @@ while ($row = mysql_fetch_assoc($res))
 print("</table>");
 if ($CURUSER['appendpromotion'] == 'highlight')
 	print("<p align=\"center\"> ".$lang_functions['text_promoted_torrents_note']."</p>\n");
-if(get_user_class()> $torrentmanage_class) 
-  echo("<div id=torrentbycheck style=\"display:none;position:fixed;background-color:white;left:10px;bottom:30px;z-index:0;\"><p><input class=btn type=button name=chkall id=chkall value=全不选 onclick=\"this.value=check(form,'全选','全不选')\"><input class=btn type=button name=fanchk id=fanchk value=反选 onclick=\"ChkOppClick('box[]')\"></p><p><input class=btn type=submit name=torrentdeletebycheck value=删除种子 onclick=\"return confirm('您确认？');\"></p><p><input class=btn type=submit name=torrentspbycheck value='设置置顶' onclick=\"return confirm('您确认？');\"><input class=btn type=submit name=torrentnmbycheck value='取消置顶' onclick=\"return confirm('您确认？');\"></p><p><input class=btn type=submit  name=torrent1bycheck value='设置正常' onclick=\"return confirm('您确认？');\"><input class=btn type=submit  name=torrent2bycheck value='设置免费' onclick=\"return confirm('您确认？');\"></p><p><input class=btn type=submit name=torrent3bycheck value='设置2x' onclick=\"return confirm('您确认？');\"><input class=btn type=submit name=torrent4bycheck value='设置2x免费' onclick=\"return confirm('您确认？');\"></p><p><input class=btn type=submit name=torrent5bycheck value='设置50%' onclick=\"return confirm('您确认？');\"><input class=btn type=submit name=torrent6bycheck value='设置2x 50%' onclick=\"return confirm('您确认？');\"></p><p><input class=btn type=submit name=torrent7bycheck value='设置30%' onclick=\"return confirm('您确认？');\"></p></div></form>");
 
 if($enabletooltip_tweak == 'yes' && (!isset($CURUSER) || $CURUSER['showlastcom'] == 'yes'))
 create_tooltip_container($lastcom_tooltip, 400);
 create_tooltip_container($torrent_tooltip, 500);
 }
 
-function get_username($id, $big = false, $link = true, $bold = true, $target = false, $bracket = false, $withtitle = false, $link_ext = "", $underline = false)
+function get_username($id, $big = false, $link = true, $bold = true, $target = false, $bracket = false, $withtitle = false, $link_ext = "", $underline = false, $onlyname = false)
 {
 	static $usernameArray = array();
 	global $lang_functions;
@@ -3485,6 +3485,9 @@ function get_username($id, $big = false, $link = true, $bold = true, $target = f
 	}
 	$arr = get_user_row($id);
 	if ($arr){
+		if($onlyname){
+			return $arr['username'];
+		}
 		if ($big)
 		{
 			$donorpic = "starbig";
@@ -4610,6 +4613,100 @@ function userccss()
         return $row;
 }
 
+function update_ll()
+{
+        //get the web page
+        $url = "http://bt.ktxp.com/playbill.php";
+        // $url = "http://www.imdb.com.sixxs.org/chart/top/";
+        $ch=curl_init($url);
+        curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
+        // curl_setopt($ch,CURLOPT_ENCODING,"");
+
+        $contents = curl_exec($ch);
+        $information = $contents;
+        curl_close($ch);
+        //echo($information);
+
+        //week
+        preg_match_all("/(>星期)(.*)(<\/dt>)/",$information,$week,PREG_SET_ORDER);
+        //var_dump($week[0][2]);
+
+        //content
+        preg_match_all("/(<dl>)(\X*?)(<\/dl)/",$information,$content,PREG_SET_ORDER);
+        //var_dump($content[0]);
+
+        //content_week
+        for($i=0;$i<7;$i++)
+        {
+                settype($content[$i][2],"string");
+                preg_match_all("/(blank\">)(.*)(<\/a><\/dd>)/",$content[$i][2],$content_week[$i],PREG_SET_ORDER);
+        }
+        // var_dump($content_week);
+
+        //    foreach($content_week[0] as $details)
+        //     var_dump($details);
+        $clearsql="TRUNCATE TABLE `ktxp`";
+        sql_query($clearsql);
+        $index=0;
+        $num=1;
+        while($index!=7)
+        {
+                foreach($content_week[$index] as $details)
+                {
+                        $res=sql_query("INSERT INTO `ktxp` ( `name` ,`week`) VALUES ( '{$details[2]}',{$num})");
+
+                        if(!$res)
+                        {
+                                return FALSE;
+                        }
+                }
+                $num++;
+                $index++;
+
+        }
+}
+//bet  相关函数 Amanda add 2015-5-10
+function set_bet_moderators($name){
+	$name = rtrim(trim($name), ",");
+	$users = explode(",", $name);
+	$userids = array();
+	foreach ($users as $user){
+		$userids[]=get_user_id_from_name(trim($user));
+	}
+	$max = count($userids);
+	sql_query("DELETE FROM betmods") or sqlerr(__FILE__, __LINE__);
+	for($i=0; $i < $max; $i++){
+		sql_query("INSERT INTO betmods (userid) VALUES (".sqlesc($userids[$i]).")") or sqlerr(__FILE__, __LINE__);
+	}
+}
+
+function get_bet_moderators($plant=false)
+{
+		$moderators = "";
+		$res = sql_query("SELECT userid FROM betmods") or sqlerr(__FILE__, __LINE__);
+		while ($row = mysql_fetch_array($res)) {
+			if($plant)$moderators .= get_username($row['userid']).", ";
+			else $moderators .= get_plain_username($row['userid']).", ";
+		}
+		return $moderators;
+}
+
+function get_bet_moderators_is($gameid=0){	 
+global $Cache,$CURUSER;
+	if($gameid)return ($CURUSER["class"] >= UC_POWER_USER)&&($gameid==get_single_value('betgames', 'id',"where id=$gameid and creator=".sqlesc($CURUSER['id'])));
+	if (!$moderators = $Cache->get_value('moderators_content')){
+		$moderators =array();
+		$res = sql_query("SELECT userid FROM betmods") or sqlerr(__FILE__, __LINE__);
+		while ($row = mysql_fetch_array($res)) {
+			$moderators[$row['userid']] = $row['userid'];
+		}
+		$Cache->cache_value('moderators_content', $moderators,1800);
+		}
+		
+		return $moderators[$CURUSER['id']];
+}
+// bet 相关函数 end
+
 //加密函数---保证与西北望加密方式一致。
 function gen_pass($username, $passwd)
 {
@@ -5137,4 +5234,4 @@ function uc_authcode($string, $operation = 'DECODE', $key = '', $expiry = 0) {
 	}
 }
 
-?>
+include_once($rootpath . 'include/functions_plus.php');

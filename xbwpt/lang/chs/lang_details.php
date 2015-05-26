@@ -218,6 +218,8 @@ $lang_details = array
 	'row_uploader_bandwidth' => "发布者带宽",
 	'text_and_more' => "……（这里只显示最新记录。共",
 	'text_users_in_total' => "个用户表示了感谢）",
+        'text_buy_torrent' => "竞价种子",
+        'title_buy_torrent' => "购买种子的促销及置顶",
 );
 
 ?>

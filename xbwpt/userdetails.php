@@ -199,11 +199,16 @@ if (get_user_class() >= $userprofile_class) {
 if (get_user_class() >= $userprofile_class ||  $user["id"] == $CURUSER["id"])
 {
 	if ($enablelocation_tweak == 'yes'){
-		list($loc_pub, $loc_mod) = get_ip_location($user[ip]);
-		$locationinfo = "<span title=\"" . $loc_mod . "\">[" . $loc_pub . "]</span>";
+            //PTrobot Amanda add 2015.5.14
+            if($user[ip] == "202.201.1.73"  || $user[id] == "148317") {
+                $locationinfo = "<span title=西北望PT站>".$BASEURL." [".$SITENAME."]</span>";
+            }else{
+                list($loc_pub, $loc_mod) = get_ip_location($user[ip]);
+                $locationinfo = $user[ip]."<span title=\"" . $loc_mod . "\">[" . $loc_pub . "]</span>";
+            }
 	}
 	else $locationinfo = "";
-	tr_small($lang_userdetails['row_ip_address'], $user[ip].$locationinfo, 1);
+	tr_small($lang_userdetails['row_ip_address'], $locationinfo, 1);
 }
 
 $res = sql_query("SELECT agent, peer_id, ip, port FROM peers WHERE userid = $user[id] GROUP BY agent") or sqlerr();
@@ -278,7 +283,7 @@ tr_small($lang_userdetails['row_torrent_comment'], ($torrentcomments && ($user["
 tr_small($lang_userdetails['row_forum_posts'], ($forumposts && ($user["id"] == $CURUSER["id"] || get_user_class() >= $viewhistory_class) ? "<a href=\"userhistory.php?action=viewposts&amp;id=".$id."\" title=\"".$lang_userdetails['link_view_posts']."\">".$forumposts."</a>" : $forumposts), 1);
 
 if ($user["id"] == $CURUSER["id"] || get_user_class() >= $viewhistory_class)
-tr_small($lang_userdetails['row_karma_points'], htmlspecialchars($user[seedbonus])."&nbsp;[<a href=\"myhistory.php?id=".$_GET[id]."&type=bonus\">".$lang_userdetails['row_karma_history']."</a>]", 1);
+tr_small($lang_userdetails['row_karma_points'], htmlspecialchars($user[seedbonus])."&nbsp;[<a href=\"myhistory.php?id=".$_GET[id]."&type=bonus\">".$lang_userdetails['row_karma_history']."</a>]&nbsp;&nbsp;[<a href=\"getusertorrentlist.php?userid=".$_GET[id]."&type=uploaded\">".$lang_userdetails['row_torrent_history']."</a>]", 1);
 
 if ($user["ip"] && (get_user_class() >= $torrenthistory_class || $user["id"] == $CURUSER["id"])){
 
