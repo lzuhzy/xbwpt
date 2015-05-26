@@ -291,6 +291,10 @@ elseif ($special_state == 7)	//30% down
 		;
 	}
 }
+if ($_GET["cat"])
+	$_GET["cat"] = $_GET["cat"];
+else
+	$_GET["cat"] = 13000;
 
 $category_get = 0 + $_GET["cat"];
 if ($showsubcat){

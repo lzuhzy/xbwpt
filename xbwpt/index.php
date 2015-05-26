@@ -37,6 +37,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 }
 
 stdhead($lang_index['head_home']);
+
+
+  if ($CURUSER["gotgift"] > TIMENOW )
+   {    echo "
+   <div align='center'><a href='/gift.php?open=1'>
+   <img src='pic/gift.png' style='float: center;border-style: none;' alt='Gift' title='Gift' /></a>
+   </div>";
+   }
+
 begin_main_frame();
 
 // ------------- Amanda add start:每日第一次登陆赠送魔力值 ------//

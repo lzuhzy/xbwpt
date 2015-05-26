@@ -5,8 +5,8 @@ require_once(get_langfile_path());
 loggedinorreturn();
 parked();
 
-if ($enableextforum == 'yes') //check whether internal forum is disabled
-	permissiondenied();
+//if ($enableextforum == 'yes') //check whether internal forum is disabled
+//	permissiondenied();
 
 // ------------- start: functions ------------------//
 //print forum stats

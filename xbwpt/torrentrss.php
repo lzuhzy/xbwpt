@@ -101,7 +101,7 @@ get_where("teams", "team", "tea");
 get_where("audiocodecs", "audiocodec", "aud");
 if ($where)
 	$where = "WHERE ".$where;
-$query = "SELECT torrents.id, torrents.category, torrents.name, torrents.small_descr, torrents.descr, torrents.info_hash, torrents.size, torrents.added, torrents.anonymous, users.username AS username, categories.id AS cat_id, categories.name AS cat_name FROM torrents LEFT JOIN categories ON category = categories.id LEFT JOIN users ON torrents.owner = users.id $where ORDER BY torrents.added DESC LIMIT $limit";
+$query = "SELECT torrents.id, torrents.category, torrents.name, torrents.small_descr, torrents.descr, torrents.dburl, torrents.info_hash, torrents.size, torrents.added, torrents.anonymous, users.username AS username, categories.id AS cat_id, categories.name AS cat_name FROM torrents LEFT JOIN categories ON category = categories.id LEFT JOIN users ON torrents.owner = users.id $where ORDER BY torrents.added DESC LIMIT $limit";
 
 $res = sql_query($query) or die(mysql_error());
 
@@ -156,10 +156,12 @@ while ($row = mysql_fetch_array($res))
 	if ($_GET['ismalldescr'] && $row['small_descr']) $title .= "[".$row['small_descr']."]";
 	if ($_GET['isize']) $title .= "[".mksize($row['size'])."]";
 	if ($_GET['iuplder']) $title .= "[".$author."]";
+	$doubanid = $row['dburl'];
 	$content = format_comment($row['descr'], true, false, false, false);
 	print('		<item>
 			<title><![CDATA['.$title.']]></title>
 			<link>'.$itemurl.'</link>
+			<doubanid>'.$doubanid.'</doubanid>
 			<description><![CDATA['.$content.']]></description>
 ');
 //print('			<dc:creator>'.$author.'</dc:creator>');

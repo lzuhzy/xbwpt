@@ -21,11 +21,13 @@ else
 	loggedinorreturn();
 	parked();
 	$letdown = $_GET['letdown'];
-	//新手任务 Amanda add 2015-4-6
+	// Amanda add 2015-4-6
+/*
 	if (!$letdown && $CURUSER['showdlnotice'] == 2)
 	{
 		header("Location: " . get_protocol_prefix() . "$BASEURL/question.php");
 	}else
+*/
 	if (!$letdown && $CURUSER['showdlnotice'] == 1)
 	{
 		header("Location: " . get_protocol_prefix() . "$BASEURL/downloadnotice.php?torrentid=".$id."&type=firsttime");

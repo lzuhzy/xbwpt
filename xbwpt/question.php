@@ -5,7 +5,7 @@ loggedinorreturn();
 
 $showdlnoticef=2;//起始$CURUSER['showdlnotice']
 $showdlnoticel=1;//终止$CURUSER['showdlnotice']
-$addbouns=2000;//答题奖励
+$addbouns=3000;//答题奖励
 $LIMIT=10;//最大答题数
 
 $questinguser = mysql_fetch_assoc(sql_query("SELECT questionid FROM freshmananswer where userid=".sqlesc($CURUSER['id'])));

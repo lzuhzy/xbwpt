@@ -4,6 +4,9 @@ dbconn ();
 require_once (get_langfile_path ());
 loggedinorreturn ();
 parked ();
+
+if ($enablerequest == "no")
+	stderr("Sorry","悬赏求种系统关闭");
 $torrentsperpage = 25;
 $action = isset ( $_POST ['action'] ) ? htmlspecialchars ( $_POST ['action'] ) : (isset ( $_GET ['action'] ) ? htmlspecialchars ( $_GET ['action'] ) : '');
 $allowed_actions = array (
