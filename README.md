@@ -1,4 +1,7 @@
-西北望PT站 http://pt.xbwbbs.com<br>
+2021.7.15
+PT站现在包括以后估计再也不会有人用了吧，版本就尘封在此吧
+
+西北望PT站<br>
 版本：NexusPHP Standard v1.5 Beta 4<br>
 <br>
 新增以下功能：<br><br>
